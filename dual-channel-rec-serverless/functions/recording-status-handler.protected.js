@@ -12,5 +12,10 @@ exports.handler = function(context, event, callback) {
     console.log(`Recording ${RecordingSid} is available at ${RecordingUrl}`);
   }
 
+  console.log('Event properties:');
+  Object.keys(event).forEach(key => {
+    console.log(`${key}: ${event[key]}`);
+  });
+
   callback(null, {});
 }
