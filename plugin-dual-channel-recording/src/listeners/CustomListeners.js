@@ -93,13 +93,10 @@ const addCallDataToTask = async (task, callSid, recording) => {
 }
 
 const isTaskActive = (task) => {
-  console.debug('Checking if task is active', task);
   const { sid: reservationSid, taskStatus } = task;
-  console.debug('TaskStatus:', taskStatus);
   if (taskStatus === 'canceled') {
     return false;
   } else {
-    console.debug(`WorkerClient has reservation ${reservationSid}:`, manager.workerClient.reservations.has(reservationSid));
     return manager.workerClient.reservations.has(reservationSid);
   }
 }
@@ -182,6 +179,7 @@ const handleAcceptedCall = async (task) => {
 
   // We want to wait for all participants (customer and worker) to join the
   // conference before we start the recording
+  console.debug('Waiting for customer and worker to join the conference');
   const participants = await waitForConferenceParticipants(task);
 
   const customer = participants.find(p => p.participantType === ParticipantType.customer);
