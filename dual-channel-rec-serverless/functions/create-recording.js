@@ -29,9 +29,7 @@ exports.handler = TokenValidator(async function(context, event, callback) {
     const recording = await client.calls(callSid)
       .recordings
       .create({
-        recordingChannels: 'dual',
-        recordingStatusCallback: `https://${DOMAIN_NAME}/recording-status-handler`,
-        recordingStatusCallbackEvent: 'in-progress,completed'
+        recordingChannels: 'dual'
       });
     response.appendHeader('Content-Type', 'application/json');
     response.setBody({
