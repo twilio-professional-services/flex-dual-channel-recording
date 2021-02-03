@@ -34,9 +34,9 @@ There are various ways to enable call recordings with Twilio Flex. Let's outline
 ### Twilio Function
 The Twilio Functions should be deployed first so the serverless environment domain can be captured for use in the Flex Plugin. Navigate to the `dual-channel-rec-serverless` folder in this repository for instructions on deploying the Twilio Function.
 
-> **Once the Twilio Function is deployed, make note of the Domain returned by the CLI command `twilio serverless:deploy`.**
+> **NOTE:** Once the Twilio Function is deployed, make note of the Domain returned by the CLI command `twilio serverless:deploy`
 
 ### Flex Plugin
 Navigate to the `plugin-dual-channel-recording` folder in this repository for instructions on deploying the Flex Plugin.
 
-> **Before deploying, make a copy of `.env.sample`, rename it to `.env` and populate the `REACT_APP_SERVERLESS_DOMAIN=` variable with the Twilio Serverless Domain noted from the Twilio Function deployment.**
+> **NOTE:** Before deploying, make a copy of `.env.sample`, rename it to `.env` and populate the `REACT_APP_SERVERLESS_DOMAIN=` variable with the Twilio Serverless Domain noted from the Twilio Function deployment
