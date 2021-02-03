@@ -36,6 +36,8 @@ npm install
 
 In the `/public` directory make a copy of the `appConfig.examples.js` file and rename it to `appConfig.js`, copy the contents from `appConfig.examples.js` and paste it into `appConfig.js`.
 
+In the root directory make a copy of `.env.sample`, rename it to `.env` and populate the `REACT_APP_SERVERLESS_DOMAIN=` variable with the Twilio Serverless Domain noted from the Twilio Function deployment.
+
 ---
 
 ### Development

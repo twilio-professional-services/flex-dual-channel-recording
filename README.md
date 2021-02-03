@@ -37,4 +37,4 @@ The Twilio Functions should be deployed first so the serverless environment doma
 Once the Twilio Function is deployed, make note of the Domain returned by the CLI command `twilio serverless:deploy`.
 
 ### Flex Plugin
-Navigate to the `plugin-dual-channel-recording` folder in this repository for instructions on deploying the Flex Plugin. Before deploying, be sure to rename `.env.sample` to `.env` and populate the `REACT_APP_SERVERLESS_DOMAIN=` variable with the Twilio Serverless Domain noted from the Twilio Function deployment.
+Navigate to the `plugin-dual-channel-recording` folder in this repository for instructions on deploying the Flex Plugin. Before deploying, make a copy of `.env.sample`, rename it to `.env` and populate the `REACT_APP_SERVERLESS_DOMAIN=` variable with the Twilio Serverless Domain noted from the Twilio Function deployment.
