@@ -8,13 +8,13 @@
     "deploy": "twilio-run deploy"
   },
   "devDependencies": {
-    "twilio-run": "^2.0.0"
+    "twilio-run": "^3.4.0"
   },
   "engines": {
-    "node": "10.17.0"
+    "node": "^14.0.0"
   },
   "dependencies": {
-    "twilio": "^3.48.0",
-    "twilio-flex-token-validator": "^1.5.3"
+    "twilio": "^3.72.0",
+    "twilio-flex-token-validator": "^1.5.6"
   }
 }
