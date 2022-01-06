@@ -4,7 +4,6 @@ import { ParticipantType, ReservationEvents } from '../enums';
 const manager = Manager.getInstance();
 const reservationListeners = new Map();
 const { REACT_APP_RECORD_CHANNEL } = process.env;
-console.debug('ENV VARS:', REACT_APP_RECORD_CHANNEL);
 
 const startCallRecording = async (callSid) => {
   console.debug('Creating recording for call SID:', callSid);
@@ -189,18 +188,20 @@ const handleAcceptedCall = async (task) => {
   const { attributes } = task;
   const { conversations } = attributes;
 
-  // if (conversations && conversations.media) {
-  //   // This indicates a recording has already been started for this call
-  //   // and all relevant metadata should already be on task attributes
-  //   return;
-  // }
+  if (
+    conversations &&
+    conversations.media &&
+    REACT_APP_RECORD_CHANNEL == 'customer'
+  ) {
+    // This indicates a recording has already been started for this call
+    // and all relevant metadata should already be on task attributes
+    return;
+  }
 
   // We want to wait for all participants (customer and worker) to join the
   // conference before we start the recording
   console.debug('Waiting for customer and worker to join the conference');
   const participants = await waitForConferenceParticipants(task);
-  console.debug('CALL PARTICIPANTS: ', participants);
-  console.debug('PARTICIPANT TYPE: ', REACT_APP_RECORD_CHANNEL);
   const participantLeg = participants.find(
     (p) => p.participantType === REACT_APP_RECORD_CHANNEL
   );
