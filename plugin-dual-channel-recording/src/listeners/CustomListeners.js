@@ -1,9 +1,10 @@
 import { Actions, Manager, TaskHelper } from '@twilio/flex-ui';
 import { ParticipantType, ReservationEvents } from '../enums';
-
+console.debug(process.env.REACT_APP_RECORD_CHANNEL.toLowerCase());
 const manager = Manager.getInstance();
 const reservationListeners = new Map();
-const { REACT_APP_RECORD_CHANNEL } = process.env;
+const REACT_APP_RECORD_CHANNEL =
+  process.env.REACT_APP_RECORD_CHANNEL.toLowerCase();
 
 const startCallRecording = async (callSid) => {
   console.debug('Creating recording for call SID:', callSid);
