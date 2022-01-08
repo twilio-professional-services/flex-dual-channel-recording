@@ -1,6 +1,6 @@
 import { Actions, Manager, TaskHelper } from '@twilio/flex-ui';
 import { ParticipantType, ReservationEvents } from '../enums';
-console.debug(process.env.REACT_APP_RECORD_CHANNEL.toLowerCase());
+
 const manager = Manager.getInstance();
 const reservationListeners = new Map();
 const REACT_APP_RECORD_CHANNEL =
@@ -37,7 +37,7 @@ const startCallRecording = async (callSid) => {
 const addCallDataToTask = async (task, callSid, recording) => {
   const { attributes, conference } = task;
 
-  const newAttributes = { ...attributes };
+  let newAttributes = { ...attributes };
   let shouldUpdateTaskAttributes = false;
 
   if (TaskHelper.isOutboundCallTask(task)) {
@@ -53,6 +53,7 @@ const addCallDataToTask = async (task, callSid, recording) => {
   }
 
   if (recording) {
+    const { dateUpdated, sid: reservationSid } = task;
     shouldUpdateTaskAttributes = true;
     const conversations = attributes.conversations || {};
 
@@ -65,7 +66,7 @@ const addCallDataToTask = async (task, callSid, recording) => {
     const twilioApiBase = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}`;
     const recordingUrl = `${twilioApiBase}/Recordings/${recordingSid}`;
 
-    const { dateUpdated } = task;
+    const reservationAttributes = attributes.reservation_attributes || {};
 
     // Using one second before task updated time to workaround a Flex Insights
     // bug if the recording start time is after the reservation.accepted event
@@ -82,17 +83,27 @@ const addCallDataToTask = async (task, callSid, recording) => {
       start_time: recordingStartTime,
       channels: ['customer', 'others'],
     };
-    console.debug('NEWATTRIBUTES: ', newAttributes);
-    if (Object.keys(conversations).length === 0) {
-      newAttributes.conversations = {
-        ...conversations,
-        media: [mediaObj],
-      };
-    } else {
-      newAttributes.conversations.media.push(mediaObj);
-      newAttributes.conversations = {
-        ...conversations,
-      };
+
+    switch (REACT_APP_RECORD_CHANNEL) {
+      case 'worker':
+        const newReservationAttributes = {};
+        newReservationAttributes[reservationSid] = {
+          media: [mediaObj],
+        };
+        newAttributes = {
+          ...attributes,
+          reservation_attributes: {
+            ...reservationAttributes,
+            ...newReservationAttributes,
+          },
+        };
+        break;
+      case 'customer':
+        newAttributes.conversations = {
+          ...conversations,
+          media: [mediaObj],
+        };
+        break;
     }
   }
 
