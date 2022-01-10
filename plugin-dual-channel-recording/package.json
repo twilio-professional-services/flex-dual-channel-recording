@@ -6,9 +6,9 @@
     "postinstall": "flex-plugin pre-script-check"
   },
   "dependencies": {
+    "flex-plugin-scripts": "4.3.19-beta.0",
     "react": "16.5.2",
-    "react-dom": "16.5.2",
-    "flex-plugin-scripts": "4.3.19-beta.0"
+    "react-dom": "16.5.2"
   },
   "devDependencies": {
     "@twilio/flex-ui": "^1"
