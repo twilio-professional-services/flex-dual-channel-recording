@@ -11,6 +11,7 @@ There are various ways to enable call recordings with Twilio Flex. Let's outline
    - Cons:
      - Conference recordings are single channel, or mono, recordings. This means analytics tools like Flex Insights are unable to determine if the customer or the agent is speaking, limiting capabilities of those tools such as detecting cross talk.
      - No option for custom business logic to determine which calls are recorded. All calls, inbound and outbound, are recorded.
+     - If (custom) external warm transfer logic is in place and agent drops off leaving customer and third party in conference, the conference recording may not be linked to the task in time for Flex Insights to ingest it. 
 1. Follow our [Enabling Dual-Channel Recordings](https://www.twilio.com/docs/flex/developer/insights/enable-dual-channel-recordings#using-studio-to-enable-recordings) guide to start a dual-channel recording in Studio and capture recording metadata on the task attributes for playback in Flex Insights
    - Pros:
      - No custom code required. Configuration is done entirely in Studio's graphical interface.
@@ -26,6 +27,7 @@ There are various ways to enable call recordings with Twilio Flex. Let's outline
      - The same solution works for both inbound and outbound calls
      - Custom business logic can be leveraged to selectively record calls
      - The recording begins from the moment the customer and agent are connected, so no IVR or queue hold audio is captured in the recording
+     - The recording media URL is added to task attributes early - ensuring Flex Insights will be able to playback the recording regardless of whether agent drops early or not (see Con for Flex Call Recording)
    - Cons:
      - Custom code is required, both on the front end (Flex plugin) and the backend (Twilio Function)
      - If it's desired to record the IVR messaging, that will not be included
