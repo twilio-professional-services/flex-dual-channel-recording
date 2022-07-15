@@ -1,6 +1,4 @@
-import React from 'react';
-import { VERSION } from '@twilio/flex-ui';
-import { FlexPlugin } from 'flex-plugin';
+import { FlexPlugin } from '@twilio/flex-plugin';
 
 import './listeners/CustomListeners';
 
