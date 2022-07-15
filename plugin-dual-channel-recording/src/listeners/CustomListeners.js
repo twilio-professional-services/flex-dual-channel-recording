@@ -214,9 +214,22 @@ const handleAcceptedCall = async (task) => {
   // conference before we start the recording
   console.debug('Waiting for customer and worker to join the conference');
   const participants = await waitForConferenceParticipants(task);
-  const participantLeg = participants.find(
-    (p) => p.participantType === REACT_APP_RECORD_CHANNEL
-  );
+
+  let participantLeg;
+  switch (REACT_APP_RECORD_CHANNEL) {
+    case 'customer': {
+      participantLeg = participants.find(
+        (p) => p.participantType === 'customer'
+      );
+      break;
+    }
+    case 'worker': {
+      participantLeg = participants.find(
+        (p) => p.participantType === 'worker' && p.isMyself
+      );
+      break;
+    }
+  }
 
   console.debug('Recorded Participant: ', participantLeg);
 
@@ -231,6 +244,9 @@ const handleAcceptedCall = async (task) => {
   // the worker leg of the call instead, adjust the logic above to find
   // the worker participant and use that call SID instead.
   const { callSid } = participantLeg;
+
+  console.debug('callSid: ', callSid);
+
 
   const recording = await startCallRecording(callSid);
   await addCallDataToTask(task, callSid, recording);
