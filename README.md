@@ -1,5 +1,7 @@
 # Flex Dual Channel Recording Solution
 
+this plugin is no longer maintained as of October 17th 2022. Work to support this feature in flex v2 has been transitioned over [here](https://github.com/twilio-professional-services/flex-project-template/tree/main/plugin-flex-ts-template-v2/src/feature-library/dual-channel-recording/README.md)
+
 ## Overview
 
 There are various ways to enable call recordings with Twilio Flex. Let's outline those methods to better understand when using this custom solution would be preferable.
